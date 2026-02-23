@@ -22,8 +22,9 @@ app.use(pinia);
 app.use(router);
 
 // Rehydrate auth session before first render (swallow error if unauthenticated)
-const { useAuthStore } = await import("@/stores/auth");
-const authStore = useAuthStore();
-await authStore.fetchMe().catch(() => {});
-
-app.mount("#app");
+(async () => {
+  const { useAuthStore } = await import("@/stores/auth");
+  const authStore = useAuthStore();
+  await authStore.fetchMe().catch(() => {});
+  app.mount("#app");
+})();
